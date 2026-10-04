@@ -1,0 +1,38 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\graphicspath{{../results/figures/}}
+\IfFileExists{generated/numbers.tex}{\input{generated/numbers.tex}}{}
+
+\begin{document}
+\title{Reproducing Transfer-Learning and Snapshot-Ensemble Diabetic Retinopathy Grading on APTOS 2019:\\
+Stage 2 (Base Paper \& Reproducibility Check) and Stage 3 (Baseline Reproduction)}
+\author{\IEEEauthorblockN{Shivansh, Divyanshi, Vivek, Shubham}
+\IEEEauthorblockA{CV Research-Reproduction Project --- Diabetic Retinopathy Grading}}
+\maketitle
+
+\begin{abstract}
+We select Chilukoti \emph{et al.} (2024), which reports a quadratic weighted kappa (QWK) of 0.954 on APTOS~2019
+with an ImageNet-initialised EfficientNet-B3 and 0.967 with EyePACS pre-training and snapshot ensembling, as
+our base paper, document its reproducibility, and re-implement it from the text because no code is public.
+We run the exact published protocol (300\,px, 60 epochs, batch 16) on a Colab T4 GPU, after compute-limited
+pilot runs (224\,px, 30 epochs) on an Apple M2. With the paper's hyper-parameters the best-validation model
+reaches test QWK \FullBestQWK{} and the 10-snapshot vote \FullVoteQWK{}, about 0.10 below the reported 0.954.
+Training at lr $10^{-3}$ is unstable at both resolutions, and Severe NPDR is almost never recognised (recall
+$\leq$\FullBestSevRec{}). Changing only the learning rate to $10^{-4}$ makes training stable and gives QWK
+\FulllowMeanQWK{} for the snapshot ensemble, with PDR recall rising to \FulllowMeanPDRRec{}. The full resolution
+and schedule add about 0.03 QWK at the paper's learning rate but nothing at $10^{-4}$, so a gap of about 0.07
+remains that none of the stated settings explain. We also find 123 groups of byte-identical images in APTOS
+(30 with conflicting grades), whose leakage into the test set has no measurable effect. No clinical claims are made.
+\end{abstract}
+
+\input{sections/stage2.tex}
+\input{sections/protocol.tex}
+\IfFileExists{sections/results.tex}{\input{sections/results.tex}}{}
+
+\bibliographystyle{IEEEtran}
+\bibliography{refs}
+\end{document}

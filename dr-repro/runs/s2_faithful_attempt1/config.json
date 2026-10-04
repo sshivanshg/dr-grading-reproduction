@@ -1,0 +1,19 @@
+{
+  "run": "s2_faithful",
+  "backbone": "efficientnet_b3",
+  "size": 224,
+  "no_clahe": false,
+  "epochs": 30,
+  "bs": 8,
+  "lr": 0.001,
+  "wd": 0.0001,
+  "clip": 0.1,
+  "loss": "ce",
+  "snapshots": 10,
+  "seed": 42,
+  "split_seed": 42,
+  "protocol": "faithful",
+  "hflip": false,
+  "amp": false,
+  "max_batches": 0
+}

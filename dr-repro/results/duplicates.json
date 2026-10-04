@@ -1,0 +1,18 @@
+{
+  "rows": 3662,
+  "unique_images": 3534,
+  "duplicate_groups": 123,
+  "extra_duplicate_rows": 128,
+  "groups_with_conflicting_grades": 30,
+  "faithful_test_rows": 550,
+  "faithful_test_rows_with_identical_image_in_train": 29,
+  "of_which_conflicting_grade": 5,
+  "clean_protocol_rows": 3504,
+  "clean_class_counts": [
+    1796,
+    338,
+    922,
+    177,
+    271
+  ]
+}

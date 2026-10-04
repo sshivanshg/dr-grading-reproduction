@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# APTOS 2019 images may not be redistributed (Kaggle competition rules); scripts/prepare_data.py re-creates them.
+dr-repro/data/
+
+# Model weights (45 MB each) and resume checkpoints.
+*.pt
+*.tmp
+
+# LaTeX build artefacts
+dr-repro/reports/*.aux
+dr-repro/reports/*.log
+dr-repro/reports/*.bbl
+dr-repro/reports/*.blg
+dr-repro/reports/*.out
+
+dr-repro.zip

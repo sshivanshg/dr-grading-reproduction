@@ -1,0 +1,78 @@
+GPU: Tesla T4
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+/content/dr-grading-reproduction/dr-repro/src/data.py:84: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  x = torch.from_numpy(np.ascontiguousarray(self.arr[self.indices[i]])).permute(2, 0, 1)
+/content/dr-grading-reproduction/dr-repro/src/data.py:84: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  x = torch.from_numpy(np.ascontiguousarray(self.arr[self.indices[i]])).permute(2, 0, 1)
+/content/dr-grading-reproduction/dr-repro/src/data.py:84: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  x = torch.from_numpy(np.ascontiguousarray(self.arr[self.indices[i]])).permute(2, 0, 1)
+/content/dr-grading-reproduction/dr-repro/src/data.py:84: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  x = torch.from_numpy(np.ascontiguousarray(self.arr[self.indices[i]])).permute(2, 0, 1)
+{"epoch": 1, "train_loss": 0.9062960913404823, "val_qwk": 0.8132796356532332, "val_acc": 0.7581818181818182, "val_macro_f1": 0.3363319650926149, "sec": 105.4}
+{"epoch": 2, "train_loss": 0.5514793301001191, "val_qwk": 0.852136864269169, "val_acc": 0.7963636363636364, "val_macro_f1": 0.5323060679384306, "sec": 77.7}
+{"epoch": 3, "train_loss": 0.3673923208611086, "val_qwk": 0.856518039145837, "val_acc": 0.7672727272727272, "val_macro_f1": 0.5275831623107419, "sec": 77.6}
+{"epoch": 4, "train_loss": 0.2683833399438299, "val_qwk": 0.8729965467656104, "val_acc": 0.8145454545454546, "val_macro_f1": 0.6228557608842689, "sec": 77.7}
+{"epoch": 5, "train_loss": 0.19294764967926312, "val_qwk": 0.861617617957199, "val_acc": 0.7854545454545454, "val_macro_f1": 0.585300662704106, "sec": 77.6}
+{"epoch": 6, "train_loss": 0.17048735109856353, "val_qwk": 0.8749789984483559, "val_acc": 0.8054545454545454, "val_macro_f1": 0.656649239737475, "sec": 77.5}
+/content/dr-grading-reproduction/dr-repro/src/data.py:84: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  x = torch.from_numpy(np.ascontiguousarray(self.arr[self.indices[i]])).permute(2, 0, 1)
+/content/dr-grading-reproduction/dr-repro/src/data.py:84: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /pytorch/torch/csrc/utils/tensor_numpy.cpp:213.)
+  x = torch.from_numpy(np.ascontiguousarray(self.arr[self.indices[i]])).permute(2, 0, 1)
+{"epoch": 7, "train_loss": 0.17438809763261814, "val_qwk": 0.8707645770784893, "val_acc": 0.7872727272727272, "val_macro_f1": 0.6514387368245635, "sec": 77.6}
+{"epoch": 8, "train_loss": 0.13610324912979194, "val_qwk": 0.8622865152883445, "val_acc": 0.8018181818181818, "val_macro_f1": 0.6283251399526474, "sec": 77.3}
+{"epoch": 9, "train_loss": 0.15529388412032857, "val_qwk": 0.8761188036470298, "val_acc": 0.8036363636363636, "val_macro_f1": 0.654432212325741, "sec": 77.5}
+{"epoch": 10, "train_loss": 0.12149997106091633, "val_qwk": 0.8820872138036704, "val_acc": 0.82, "val_macro_f1": 0.6749113815494752, "sec": 77.6}
+{"epoch": 11, "train_loss": 0.11369143957404049, "val_qwk": 0.8885161028776781, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6529273858033331, "sec": 77.4}
+{"epoch": 12, "train_loss": 0.14142518827529785, "val_qwk": 0.876762236961823, "val_acc": 0.7945454545454546, "val_macro_f1": 0.6091384413067268, "sec": 77.6}
+{"epoch": 13, "train_loss": 0.1222296077250121, "val_qwk": 0.8664235305070441, "val_acc": 0.7909090909090909, "val_macro_f1": 0.6382773984645045, "sec": 77.3}
+{"epoch": 14, "train_loss": 0.1055068873881396, "val_qwk": 0.8658240049070078, "val_acc": 0.7854545454545454, "val_macro_f1": 0.6127837453822108, "sec": 77.5}
+{"epoch": 15, "train_loss": 0.09982494488905332, "val_qwk": 0.8723947651228444, "val_acc": 0.7836363636363637, "val_macro_f1": 0.6485368242256146, "sec": 77.3}
+{"epoch": 16, "train_loss": 0.10273844264176546, "val_qwk": 0.8786984059313788, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6582361114187714, "sec": 77.7}
+{"epoch": 17, "train_loss": 0.11381027957767742, "val_qwk": 0.8618510410012465, "val_acc": 0.78, "val_macro_f1": 0.5923283732694263, "sec": 77.5}
+{"epoch": 18, "train_loss": 0.1027115378532244, "val_qwk": 0.885336088171414, "val_acc": 0.8090909090909091, "val_macro_f1": 0.628724502085501, "sec": 77.7}
+{"epoch": 19, "train_loss": 0.11589378927467635, "val_qwk": 0.8785962556038476, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6462846995746581, "sec": 77.7}
+{"epoch": 20, "train_loss": 0.10503828141061149, "val_qwk": 0.8593583129014305, "val_acc": 0.7963636363636364, "val_macro_f1": 0.6128319711667459, "sec": 77.5}
+{"epoch": 21, "train_loss": 0.1268712417450729, "val_qwk": 0.8806189842568494, "val_acc": 0.8036363636363636, "val_macro_f1": 0.6363199947338247, "sec": 77.6}
+{"epoch": 22, "train_loss": 0.12633262890597052, "val_qwk": 0.8770980534075723, "val_acc": 0.8036363636363636, "val_macro_f1": 0.6408418057561247, "sec": 77.6}
+{"epoch": 23, "train_loss": 0.12269751517096808, "val_qwk": 0.8372700237777975, "val_acc": 0.7945454545454546, "val_macro_f1": 0.6269949152998785, "sec": 77.5}
+{"epoch": 24, "train_loss": 0.13073165931672293, "val_qwk": 0.8722529926746472, "val_acc": 0.8127272727272727, "val_macro_f1": 0.6472476310590867, "sec": 77.5}
+{"epoch": 25, "train_loss": 0.10163193713684678, "val_qwk": 0.8860230640582663, "val_acc": 0.8109090909090909, "val_macro_f1": 0.649427006114542, "sec": 77.6}
+{"epoch": 26, "train_loss": 0.1309987164930817, "val_qwk": 0.8767117935092203, "val_acc": 0.7963636363636364, "val_macro_f1": 0.6308254560342739, "sec": 77.7}
+{"epoch": 27, "train_loss": 0.12322872415526262, "val_qwk": 0.862381394491305, "val_acc": 0.8054545454545454, "val_macro_f1": 0.6170090090090091, "sec": 77.3}
+{"epoch": 28, "train_loss": 0.14688818151662417, "val_qwk": 0.8501397489415056, "val_acc": 0.7963636363636364, "val_macro_f1": 0.6273144301764659, "sec": 77.5}
+{"epoch": 29, "train_loss": 0.1348794086553653, "val_qwk": 0.8857947073345177, "val_acc": 0.8145454545454546, "val_macro_f1": 0.6206971360205719, "sec": 77.5}
+{"epoch": 30, "train_loss": 0.13000586805218858, "val_qwk": 0.8594182001237042, "val_acc": 0.7836363636363637, "val_macro_f1": 0.6084069960991432, "sec": 77.5}
+{"epoch": 31, "train_loss": 0.13060812572882696, "val_qwk": 0.8769203605956274, "val_acc": 0.8036363636363636, "val_macro_f1": 0.6304811202543382, "sec": 77.8}
+{"epoch": 32, "train_loss": 0.0975603403139246, "val_qwk": 0.8652286701908689, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6336464869612846, "sec": 77.7}
+{"epoch": 33, "train_loss": 0.12100403906149068, "val_qwk": 0.8780675352066261, "val_acc": 0.7927272727272727, "val_macro_f1": 0.6276015955534533, "sec": 77.7}
+{"epoch": 34, "train_loss": 0.12878482990483917, "val_qwk": 0.8560061786439709, "val_acc": 0.8072727272727273, "val_macro_f1": 0.5975794897520965, "sec": 77.7}
+{"epoch": 35, "train_loss": 0.1268597384841712, "val_qwk": 0.8649595798117546, "val_acc": 0.8145454545454546, "val_macro_f1": 0.6461301339127348, "sec": 77.6}
+{"epoch": 36, "train_loss": 0.1375421891031749, "val_qwk": 0.8806824463436054, "val_acc": 0.7836363636363637, "val_macro_f1": 0.6325088648446313, "sec": 77.8}
+{"epoch": 37, "train_loss": 0.1205964792102577, "val_qwk": 0.8616647104100462, "val_acc": 0.7745454545454545, "val_macro_f1": 0.601286900981888, "sec": 77.6}
+{"epoch": 38, "train_loss": 0.10430521211106906, "val_qwk": 0.8753923028254156, "val_acc": 0.8145454545454546, "val_macro_f1": 0.6393549235854612, "sec": 77.8}
+{"epoch": 39, "train_loss": 0.07955748693434543, "val_qwk": 0.8630446431385734, "val_acc": 0.8018181818181818, "val_macro_f1": 0.6268554298829528, "sec": 77.8}
+{"epoch": 40, "train_loss": 0.14150347676742286, "val_qwk": 0.8813888289842571, "val_acc": 0.7763636363636364, "val_macro_f1": 0.6173368477760682, "sec": 77.7}
+{"epoch": 41, "train_loss": 0.12793772911502402, "val_qwk": 0.8616821075469567, "val_acc": 0.7836363636363637, "val_macro_f1": 0.5836134453781512, "sec": 77.6}
+{"epoch": 42, "train_loss": 0.15729888324148078, "val_qwk": 0.8762683902461073, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6317816356078192, "sec": 77.8}
+{"epoch": 43, "train_loss": 0.11769021921896013, "val_qwk": 0.88380290169824, "val_acc": 0.8236363636363636, "val_macro_f1": 0.6131740500588911, "sec": 77.6}
+{"epoch": 44, "train_loss": 0.12647772058055295, "val_qwk": 0.8807466521685663, "val_acc": 0.8109090909090909, "val_macro_f1": 0.623894647999009, "sec": 77.7}
+{"epoch": 45, "train_loss": 0.11521118860811157, "val_qwk": 0.8174193781422701, "val_acc": 0.7709090909090909, "val_macro_f1": 0.6171956728736638, "sec": 77.6}
+{"epoch": 46, "train_loss": 0.1314570756598755, "val_qwk": 0.8579926535404006, "val_acc": 0.7945454545454546, "val_macro_f1": 0.6325916780050903, "sec": 77.7}
+{"epoch": 47, "train_loss": 0.12459355204388203, "val_qwk": 0.8617960045384019, "val_acc": 0.78, "val_macro_f1": 0.6143489621381035, "sec": 77.5}
+{"epoch": 48, "train_loss": 0.12162774632669197, "val_qwk": 0.8820171324056189, "val_acc": 0.8072727272727273, "val_macro_f1": 0.6564306960422241, "sec": 77.7}
+{"epoch": 49, "train_loss": 0.12222113401504657, "val_qwk": 0.8752566348851458, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6394885662741006, "sec": 77.7}
+{"epoch": 50, "train_loss": 0.10801761773392968, "val_qwk": 0.8723134103377176, "val_acc": 0.8054545454545454, "val_macro_f1": 0.5690312998298478, "sec": 77.7}
+{"epoch": 51, "train_loss": 0.13555893197321894, "val_qwk": 0.8925411952109567, "val_acc": 0.8254545454545454, "val_macro_f1": 0.6582523773172198, "sec": 77.5}
+{"epoch": 52, "train_loss": 0.1412654230885039, "val_qwk": 0.88249915263812, "val_acc": 0.82, "val_macro_f1": 0.6480928354199955, "sec": 77.7}
+{"epoch": 53, "train_loss": 0.15139669322023225, "val_qwk": 0.8515172428215907, "val_acc": 0.7654545454545455, "val_macro_f1": 0.6134198497625349, "sec": 77.8}
+{"epoch": 54, "train_loss": 0.11657039984461334, "val_qwk": 0.838124726434561, "val_acc": 0.7854545454545454, "val_macro_f1": 0.6288947368421053, "sec": 77.5}
+{"epoch": 55, "train_loss": 0.13296517083618936, "val_qwk": 0.8432377678838211, "val_acc": 0.8127272727272727, "val_macro_f1": 0.627688086339373, "sec": 77.6}
+{"epoch": 56, "train_loss": 0.14635398891302884, "val_qwk": 0.8661405529700168, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6204943389702244, "sec": 77.6}
+{"epoch": 57, "train_loss": 0.10686172094010545, "val_qwk": 0.8678470870658339, "val_acc": 0.8109090909090909, "val_macro_f1": 0.6472087114485318, "sec": 77.7}
+{"epoch": 58, "train_loss": 0.14087671816618014, "val_qwk": 0.8586824875106555, "val_acc": 0.8036363636363636, "val_macro_f1": 0.647324705941171, "sec": 77.6}
+{"epoch": 59, "train_loss": 0.13898780086570922, "val_qwk": 0.8225864884814411, "val_acc": 0.7672727272727272, "val_macro_f1": 0.6171853569501671, "sec": 77.6}
+{"epoch": 60, "train_loss": 0.13669756579271847, "val_qwk": 0.8559400486664708, "val_acc": 0.7963636363636364, "val_macro_f1": 0.6097271584494885, "sec": 77.8}
+final_epoch    QWK=0.8579 acc=0.8091 macroF1=0.6100 AUC=0.8986 minorityRecall=0.388
+best_val       QWK=0.8600 acc=0.8127 macroF1=0.5995 AUC=0.9075 minorityRecall=0.342
+ensemble_vote  QWK=0.8789 acc=0.8218 macroF1=0.6229 AUC=0.9342 minorityRecall=0.359
+ensemble_mean  QWK=0.8820 acc=0.8255 macroF1=0.6291 AUC=0.9342 minorityRecall=0.370

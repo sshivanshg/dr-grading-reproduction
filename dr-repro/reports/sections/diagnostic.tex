@@ -1,0 +1,35 @@
+\subsection{Diagnostic: learning rate $10^{-4}$}
+\label{sec:diag}
+To test whether optimisation explains the gap, we repeated the exact protocol with a single change, lr
+$10^{-3}\to10^{-4}$ (same split, seed, resolution, epochs and snapshots). Training became stable: validation QWK
+stayed between 0.81 and 0.89 for all 60 epochs with no collapses (Fig.~\ref{fig:compare}), and training loss
+fell to 0.12 by epoch 10 (0.55 at lr $10^{-3}$). The best-validation checkpoints are similar (QWK
+\FulllowBestQWK{} vs.\ \FullBestQWK{}), but every other prediction improves: final epoch \FullFinalQWK{}$\to$\FulllowFinalQWK{},
+snapshot vote \FullVoteQWK{}$\to$\FulllowVoteQWK{} and snapshot mean \FullMeanQWK{}$\to$\FulllowMeanQWK{}
+(macro-F1 \FulllowMeanMF{}). Minority recall rises from \FullBestMinRec{} to \FulllowMeanMinRec{} (ensemble mean;
+Severe \FulllowMeanSevRec{}, PDR \FulllowMeanPDRRec{}).
+
+With stable training the snapshots are uniformly good (test QWK 0.823--0.885) and the ensemble now beats the
+best single model, consistent with the snapshot-ensemble assumption that members are of comparable quality.
+Severe NPDR remains the weakest grade (5 of 29 recognised by the ensemble; 16 called Moderate) and Mild is still
+mostly confused with Moderate (26/56). The low training loss with a flat validation curve suggests the model
+overfits after about 10 epochs, which a learning-rate schedule or stronger augmentation could address.
+This run is the baseline we carry into Stage~4.
+
+\subsection{Effect of resolution and schedule}
+\label{sec:res}
+Comparing the exact protocol with our compute-limited pilot isolates the effect of using 224\,px for 30 epochs
+(Table~\ref{tab:main}, Fig.~\ref{fig:compare}). At lr $10^{-3}$ the full protocol helps: best single model
+\SIIBestQWK{}$\to$\FullBestQWK{} and vote \SIIVoteQWK{}$\to$\FullVoteQWK{}, mostly because the vote is no longer
+dragged down as far by collapsed snapshots. At lr $10^{-4}$ it does not: the pilot's best model and vote
+(\SIIlowBestQWK{}, \SIIlowVoteQWK{}) are at least as good as the exact protocol's (\FulllowBestQWK{},
+\FulllowVoteQWK{}). Resolution and schedule therefore account for at most $\approx$0.03 QWK, and the learning
+rate matters more than either.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{val_qwk_compare.pdf}
+\caption{Validation QWK per epoch for all four runs. lr $10^{-3}$ (red) is unstable at both resolutions;
+lr $10^{-4}$ (blue) is stable. The dashed line is the paper's reported test QWK.}
+\label{fig:compare}
+\end{figure}

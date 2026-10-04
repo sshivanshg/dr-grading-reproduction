@@ -1,0 +1,71 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{"epoch": 1, "train_loss": 1.0058067366015166, "val_qwk": 0.6877640297383729, "val_acc": 0.7181818181818181, "val_macro_f1": 0.3141304732575838, "sec": 388.7}
+{"epoch": 2, "train_loss": 0.9032999626593664, "val_qwk": 0.2300118570944072, "val_acc": 0.4, "val_macro_f1": 0.1783806251385502, "sec": 320.1}
+{"epoch": 3, "train_loss": 0.8658951525110752, "val_qwk": 0.6770084560274612, "val_acc": 0.6927272727272727, "val_macro_f1": 0.31957412329343377, "sec": 321.0}
+{"epoch": 4, "train_loss": 0.8358694787719287, "val_qwk": 0.7484245443493496, "val_acc": 0.74, "val_macro_f1": 0.3259393502186172, "sec": 242.9}
+{"epoch": 5, "train_loss": 0.7953533967258408, "val_qwk": -0.005572777172693888, "val_acc": 0.2727272727272727, "val_macro_f1": 0.08583690987124463, "sec": 252.8}
+{"epoch": 6, "train_loss": 0.7528436088003219, "val_qwk": 0.7626584234930448, "val_acc": 0.7254545454545455, "val_macro_f1": 0.32450415866922583, "sec": 215.5}
+{"epoch": 7, "train_loss": 0.7841376949101686, "val_qwk": 0.8037452937957539, "val_acc": 0.7563636363636363, "val_macro_f1": 0.4157155592135747, "sec": 210.5}
+{"epoch": 8, "train_loss": 0.7581792132928967, "val_qwk": 0.7486639840566649, "val_acc": 0.7527272727272727, "val_macro_f1": 0.4327623699968484, "sec": 210.3}
+{"epoch": 9, "train_loss": 0.7671280845534056, "val_qwk": 0.789663238406416, "val_acc": 0.7509090909090909, "val_macro_f1": 0.40193478685379047, "sec": 210.5}
+{"epoch": 10, "train_loss": 0.7540979295503348, "val_qwk": 0.45726794642625834, "val_acc": 0.5963636363636363, "val_macro_f1": 0.24858045977011495, "sec": 220.3}
+{"epoch": 11, "train_loss": 0.7335065928054973, "val_qwk": 0.7143585201004721, "val_acc": 0.7163636363636363, "val_macro_f1": 0.35032562466772993, "sec": 255.6}
+{"epoch": 12, "train_loss": 0.7080300800036639, "val_qwk": 0.7990462960422782, "val_acc": 0.7745454545454545, "val_macro_f1": 0.440234696625755, "sec": 249.2}
+{"epoch": 13, "train_loss": 0.7214644774561748, "val_qwk": 0.7679260779256007, "val_acc": 0.7672727272727272, "val_macro_f1": 0.4465444381374323, "sec": 235.7}
+{"epoch": 14, "train_loss": 0.7053874449338764, "val_qwk": 0.78006851448147, "val_acc": 0.769090909090909, "val_macro_f1": 0.4396444038662528, "sec": 250.9}
+Traceback (most recent call last):
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/.venv/lib/python3.12/site-packages/torch/serialization.py", line 1003, in save
+    _save(
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/.venv/lib/python3.12/site-packages/torch/serialization.py", line 1312, in _save
+    zip_file.write_record(name, storage, num_bytes)
+RuntimeError: ios_base::clear: unspecified iostream_category error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/src/train.py", line 171, in <module>
+    main()
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/src/train.py", line 145, in main
+    torch.save({"model": model.state_dict(), "opt": opt.state_dict(), "snaps": snaps, "best_qwk": best_qwk,
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/.venv/lib/python3.12/site-packages/torch/serialization.py", line 1002, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/.venv/lib/python3.12/site-packages/torch/serialization.py", line 834, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:672] . unexpected pos 117963200 vs 117963092
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/src/train.py", line 175, in <module>
+    main()
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/src/train.py", line 109, in main
+    torch.set_rng_state(state["rng"])
+  File "/Users/shivanshgupta/Documents/projects/CV/dr-repro/.venv/lib/python3.12/site-packages/torch/random.py", line 36, in set_rng_state
+    default_generator.set_state(new_state)
+TypeError: RNG state must be a torch.ByteTensor
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+resumed from epoch 13
+{"epoch": 14, "train_loss": 0.6814408943988383, "val_qwk": 0.7593382990906113, "val_acc": 0.7654545454545455, "val_macro_f1": 0.44439812461164774, "sec": 293.6}
+{"epoch": 15, "train_loss": 0.7133218404604122, "val_qwk": 0.791396867459658, "val_acc": 0.7781818181818182, "val_macro_f1": 0.4705596370609345, "sec": 259.6}
+{"epoch": 16, "train_loss": 0.6661958653712645, "val_qwk": 0.6422499202627938, "val_acc": 0.649090909090909, "val_macro_f1": 0.3284276186334738, "sec": 266.3}
+{"epoch": 17, "train_loss": 0.654897051351145, "val_qwk": 0.46027040427056876, "val_acc": 0.5381818181818182, "val_macro_f1": 0.2663236431919752, "sec": 253.8}
+{"epoch": 18, "train_loss": 0.6539503461914137, "val_qwk": 0.7800027160158517, "val_acc": 0.7436363636363637, "val_macro_f1": 0.3705093015731314, "sec": 252.5}
+{"epoch": 19, "train_loss": 0.6574298680294305, "val_qwk": 0.7929180603470921, "val_acc": 0.769090909090909, "val_macro_f1": 0.4394617629363182, "sec": 249.5}
+{"epoch": 20, "train_loss": 0.6297350672073663, "val_qwk": 0.635238050625359, "val_acc": 0.6672727272727272, "val_macro_f1": 0.3335470921167116, "sec": 248.7}
+{"epoch": 21, "train_loss": 0.6350402546813712, "val_qwk": 0.7667883532171667, "val_acc": 0.7709090909090909, "val_macro_f1": 0.4564420894495459, "sec": 251.7}
+{"epoch": 22, "train_loss": 0.6213015305111185, "val_qwk": 0.761744653736403, "val_acc": 0.7763636363636364, "val_macro_f1": 0.4595772874842642, "sec": 248.5}
+{"epoch": 23, "train_loss": 0.6205525978468358, "val_qwk": 0.544259946539146, "val_acc": 0.6290909090909091, "val_macro_f1": 0.33757808327291294, "sec": 246.6}
+{"epoch": 24, "train_loss": 0.6369794063037262, "val_qwk": 0.753752555216992, "val_acc": 0.7454545454545455, "val_macro_f1": 0.4304824537164963, "sec": 246.1}
+{"epoch": 25, "train_loss": 0.6066133943852037, "val_qwk": 0.693950168955153, "val_acc": 0.7054545454545454, "val_macro_f1": 0.4101101685883342, "sec": 247.4}
+{"epoch": 26, "train_loss": 0.6013760400004685, "val_qwk": 0.7328397241267353, "val_acc": 0.7709090909090909, "val_macro_f1": 0.4572043079616169, "sec": 245.2}
+{"epoch": 27, "train_loss": 0.5842737876810133, "val_qwk": 0.8059878042757936, "val_acc": 0.7745454545454545, "val_macro_f1": 0.48071115766683403, "sec": 244.8}
+{"epoch": 28, "train_loss": 0.6390012845396995, "val_qwk": 0.7828182449375953, "val_acc": 0.7563636363636363, "val_macro_f1": 0.45146469532123934, "sec": 244.9}
+{"epoch": 29, "train_loss": 0.6173334012273699, "val_qwk": 0.8018534607587605, "val_acc": 0.7890909090909091, "val_macro_f1": 0.506985212601166, "sec": 244.9}
+{"epoch": 30, "train_loss": 0.6085865889210254, "val_qwk": 0.837989263407215, "val_acc": 0.769090909090909, "val_macro_f1": 0.5062661456079616, "sec": 245.6}
+final_epoch    QWK=0.8275 acc=0.7709 macroF1=0.4731 AUC=0.8974 minorityRecall=0.148
+best_val       QWK=0.8275 acc=0.7709 macroF1=0.4731 AUC=0.8974 minorityRecall=0.148
+ensemble_vote  QWK=0.7877 acc=0.7673 macroF1=0.4117 AUC=0.9127 minorityRecall=0.000
+ensemble_mean  QWK=0.7905 acc=0.7691 macroF1=0.4163 AUC=0.9127 minorityRecall=0.000

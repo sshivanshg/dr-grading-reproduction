@@ -1,0 +1,68 @@
+\section{Stage 2: Base Paper and Reproducibility Check}
+
+\subsection{Selected base paper}
+We reproduce Chilukoti \emph{et al.}, ``A reliable diabetic retinopathy grading via transfer learning and
+ensemble learning with quadratic weighted kappa metric,'' \emph{BMC Medical Informatics and Decision
+Making}, 24:37, 2024~\cite{chilukoti2024}. The paper fine-tunes an ImageNet-pretrained EfficientNet-B3 with a
+three-layer classifier head, pre-processes fundus images with CLAHE followed by Gaussian blur, and ensembles
+predictions from weights saved at several epochs of a single training run (``snapshot'' ensembling). It reports
+QWK as the primary metric: 0.954 on APTOS~2019 for a single model trained from ImageNet weights, and 0.967
+when the model is first trained on EyePACS and the snapshot ensemble is used.
+
+\subsection{Why this paper}
+It matches the direction set by our literature review: it treats QWK (an ordinal, imbalance-aware agreement
+metric) as primary, uses a transfer-learning CNN that fits free-tier hardware, evaluates on the public
+five-class APTOS~2019 dataset, and leaves the two gaps we identified untouched: no imbalance-aware loss and
+no ordinal-aware training objective. That makes it a clean base for a single-variable Stage~4 hypothesis.
+
+\subsection{Reproducibility checklist}
+\begin{table}[h]
+\centering
+\caption{Reproducibility checklist for the base paper.}
+\label{tab:checklist}
+\footnotesize
+\begin{tabular}{p{0.30\columnwidth}p{0.62\columnwidth}}
+\toprule
+Item & Our answer \\
+\midrule
+Public code? & No. No repository is linked and none was found on GitHub; we re-implemented the method from the
+paper text (Sec.~\ref{sec:protocol}). \\
+Dataset public \& size? & Yes. APTOS 2019 Blindness Detection (Kaggle), 3{,}662 labelled fundus images,
+$\approx$8.9\,GB at full resolution; obtained from a full-resolution Hugging Face mirror
+(\texttt{sngsfydy/aptos}). Class counts 1805/370/999/193/295. \\
+Fits free GPU? & Yes. The exact protocol (300$\times$300, batch 16, 60 epochs) takes $\approx$1.3\,h on a
+free Colab T4. Locally (Apple M2, 8\,GB unified memory) B3 at 300\,px swaps heavily even at batch 8, so the
+local pilot uses 224\,px. \\
+Last commit / usable? & Not applicable (no code). Our implementation: PyTorch 2.14, \texttt{timm} 1.0.30. \\
+Metric defined? & Yes. QWK (primary), plus accuracy, precision, recall, F1, AUC-ROC. We additionally report
+macro-F1, per-class precision/recall/F1, macro one-vs-rest AUC and the confusion matrix. \\
+Split defined? & Partially. A 70/15/15 train/val/test split is stated for EyePACS only; not stated for APTOS.
+We use a stratified 70/15/15 split with a fixed seed. \\
+Hyper-parameters? & Partially. Adam, lr $10^{-3}$, weight decay $10^{-4}$, gradient clipping 0.1, 60 epochs
+(strategy~1). Batch size, APTOS epoch count, loss function, CLAHE parameters and blur kernel are not stated. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Under-specified details and our choices}
+\begin{itemize}
+\item \textbf{Loss:} not stated; softmax output implies cross-entropy, which we use.
+\item \textbf{Gradient clipping ``0.1'':} interpreted as global L2-norm clipping at 0.1.
+\item \textbf{CLAHE / blur:} clip limit 2.0, 8$\times$8 tiles on the LAB luminance channel, then a
+5$\times$5 Gaussian blur, applied identically to train, validation and test images.
+\item \textbf{Resize:} plain square resize (no border cropping), as the paper mentions only resizing.
+\item \textbf{Augmentation:} none beyond CLAHE and blur, which the paper calls ``augmentation'' but which act as
+deterministic pre-processing.
+\item \textbf{Ensemble:} strategy~2 takes the majority vote over predictions from 10 evenly spaced
+snapshots; strategy~1 averages the 30- and 60-epoch (here: mid- and final-epoch) snapshots.
+\item \textbf{Reported model:} the paper does not say whether the final-epoch or best-validation model is
+evaluated; we report both.
+\end{itemize}
+
+\subsection{Red flags noted before reproduction}
+Several reported numbers are internally inconsistent, which we flag as context for the reproduction gap:
+(i) in Table~3 of~\cite{chilukoti2024}, precision, recall and QWK of the B3 ensemble are all exactly 0.867,
+and models predicting only class~0 report a macro AUC of 0.196, below the 0.5 that a constant predictor
+yields; (ii) in Table~6, accuracy, precision, recall and F1 agree to within 0.01 on an imbalanced dataset;
+(iii) the APTOS split is not described, so overlap between near-duplicate images in train and test (a
+known APTOS issue) cannot be ruled out. We audit duplicates ourselves in Sec.~\ref{sec:dups}.

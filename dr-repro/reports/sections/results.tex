@@ -1,0 +1,93 @@
+\section{Stage 3: Results}
+\label{sec:results}
+
+\IfFileExists{generated/main_table.tex}{\input{generated/main_table.tex}}{}
+\IfFileExists{generated/per_class_table.tex}{\input{generated/per_class_table.tex}}{}
+
+\subsection{Faithful reproduction (exact protocol)}
+Table~\ref{tab:main} summarises the test results. With the paper's protocol and hyper-parameters, the
+best-validation model (epoch 15) reaches QWK~\FullBestQWK{} (accuracy \FullBestAcc{}, macro-F1 \FullBestMF{}),
+against 0.954 reported in~\cite{chilukoti2024}: a gap of about 0.10 QWK. The final-epoch model is weaker
+(QWK \FullFinalQWK{}). The 10-snapshot majority vote, the paper's central contribution, gives \FullVoteQWK{}:
+better than the final epoch but below the best single checkpoint.
+
+Training was unstable (Fig.~\ref{fig:curves}, Fig.~\ref{fig:compare}): validation QWK fell below 0.75 at
+epochs 3, 5, 8, 10, 17, 22, 23 and 36 (to 0.556 at epoch 36) and recovered within one or two epochs, and the
+best validation score (0.895 at epoch 15) was never reached again. Test QWK of the individual snapshots
+(epochs 6, 12, \dots, 60) was 0.830, 0.770, 0.828, 0.834, 0.803, 0.522, 0.808, 0.773, 0.781 and 0.808. The
+members are of uneven quality and one is very poor, so the vote cannot exceed the best member. Snapshot
+ensembling assumes comparably good, diverse members~\cite{huang2017snapshot}, which an unstable trajectory
+without a cyclic learning-rate schedule does not provide.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{s2_paper300_curves.pdf}
+\caption{Training loss and validation metrics, exact protocol with the paper's lr $10^{-3}$.}
+\label{fig:curves}
+\end{figure}
+
+\subsection{Per-grade behaviour}
+QWK and accuracy hide a severe minority-grade failure (Table~\ref{tab:perclass}, Fig.~\ref{fig:cm}).
+No DR (recall 0.96) and Moderate (0.93) are learned well, but \textbf{Severe NPDR is almost never recognised}:
+3 of 29 Severe eyes for the single model, 0 for the vote, and at most 5 in any snapshot. PDR recall is
+\FullBestPDRRec{} (single model) and \FullVotePDRRec{} (vote), and Mild recall only \FullBestMildRec{}.
+Severe cases are mostly called Moderate (17/29) or PDR (9/29), 24 of 44 PDR eyes are called Moderate, and
+34 of 56 Mild eyes are called Moderate. The errors are mostly adjacent-grade, which is why QWK stays near
+0.86 even though two of five grades are essentially unrecognised; this is exactly the ``accuracy (and even QWK)
+can be misleading'' gap identified in our literature review.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.78\columnwidth]{s2_paper300_best_val_cm.pdf}
+\caption{Test confusion matrix of the reproduced single model (exact protocol, paper hyper-parameters).}
+\label{fig:cm}
+\end{figure}
+
+\IfFileExists{sections/diagnostic.tex}{\input{sections/diagnostic.tex}}{}
+
+\subsection{Reproduction-gap analysis}
+\label{sec:gap}
+\begin{itemize}
+\item \textbf{Duplicate leakage does not explain it.} Excluding the 29 test images with an identical copy in
+training changes the single model's QWK from 0.858 to 0.862 (0.879 to 0.879 for the lr-$10^{-4}$ vote). The
+leaked images are actually predicted \emph{worse} (58.6\% accuracy), because several copies carry conflicting grades.
+\item \textbf{Optimisation (learning rate) explains part of it.} Full fine-tuning with Adam at $10^{-3}$ and
+gradient clipping at 0.1 is unstable at both resolutions and batch sizes; lowering it to $10^{-4}$ removes the
+collapses and improves the final-epoch and ensemble predictions by 0.03--0.05 QWK (Sec.~\ref{sec:diag}). The paper's own Table~3, where VGG and ResNet models
+predict only class~0 under the same settings, is consistent with this.
+\item \textbf{Resolution and schedule explain little.} Moving from our 224\,px / 30-epoch pilot to the exact
+300\,px / 60-epoch protocol adds 0.03 QWK at lr $10^{-3}$ and nothing at $10^{-4}$ (Sec.~\ref{sec:res}).
+\item \textbf{Unreported details.} The split, loss, CLAHE parameters, and whether the reported model is the
+final or the best-validation one are not stated; each can move QWK by a few points on a 550-image test set.
+\item \textbf{Reported numbers.} The internal inconsistencies noted in Sec.~2 (e.g.\ identical precision, recall
+and QWK; macro AUC below 0.5) mean the reported 0.954 may itself not be reliable. With the stated protocol run
+exactly, a gap of $\approx$0.07 QWK remains that none of the stated settings account for.
+\end{itemize}
+
+\subsection{Failure cases}
+Fig.~\ref{fig:fail} shows the most confidently wrong test predictions of the exact-protocol model. Eight of the
+ten are PDR eyes predicted as Mild or Moderate with high confidence, including one with a large pre-retinal
+haemorrhage; the other two are a dim, low-contrast No DR image and a Mild image both predicted as PDR.
+Neovascularisation is small and easy to miss, and the model appears to rely on exudates and overall image
+appearance instead.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.9\textwidth]{s2_paper300_failures.pdf}
+\caption{Ten largest-error test predictions of the reproduced single model, exact protocol (true grade,
+predicted grade, confidence).}
+\label{fig:fail}
+\end{figure*}
+
+\section{Limitations}
+Single dataset (APTOS~2019) and a single seed per configuration; no external validation; the EyePACS-pretrained
+configuration (0.967) was not reproduced. The 550-image test set contains only 29 Severe and 44 PDR images, so
+per-grade recall estimates are noisy, and QWK differences of 0.01--0.02 between configurations are within
+run-to-run variation. This is a reproduction study; no clinical claims are made.
+
+\section{Next Step (Stage 4 preview)}
+The reproduction shows that the paper's pipeline fails on exactly the grades that matter most clinically. Our
+Stage~4 hypothesis will therefore change one variable, the training loss, from cross-entropy to a
+class-balanced, ordinal-aware objective, on top of the stable lr-$10^{-4}$ exact-protocol baseline (snapshot
+ensemble QWK \FulllowMeanQWK{}, Severe recall \FulllowMeanSevRec{}), and will be stated with a predicted
+direction and magnitude before any code is run.

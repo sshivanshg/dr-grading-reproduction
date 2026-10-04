@@ -1,0 +1,55 @@
+\section{Stage 3: Reproduction Protocol}
+\label{sec:protocol}
+
+\subsection{Data}
+APTOS~2019~\cite{aptos2019} contains 3{,}662 labelled colour fundus photographs from Aravind Eye Hospital
+graded 0--4 (No DR 1805, Mild 370, Moderate 999, Severe 193, PDR 295). Images were stored at a 512\,px longest
+side (aspect ratio preserved) and resized at load time. We use a stratified 70/15/15 split with seed 42
+(2{,}562/550/550 images).
+
+\subsection{Duplicate audit}
+\label{sec:dups}
+Hashing the raw bytes revealed 123 groups of byte-identical images (128 redundant rows); in 30 of these groups
+the copies carry \emph{different} grades (e.g.\ the same photograph labelled Moderate and PDR). Under a naive
+random split, 29 of the 550 test images (5.3\%) have an identical copy in the training set, and 5 of them with
+a conflicting grade. We train on the \textbf{faithful} split (all 3{,}662 rows, as the paper presumably did)
+and quantify the effect of this leakage by re-scoring each model on the 521 test images that have no copy in
+the training set (Sec.~\ref{sec:gap}). A de-duplicated protocol (conflicting groups removed, one copy per
+group: 3{,}504 images) is implemented for Stage~5.
+
+\subsection{Model and training}
+Following~\cite{chilukoti2024}: an ImageNet-pretrained EfficientNet-B3~\cite{tan2019efficientnet}
+(\texttt{timm}) with global average pooling (1{,}536-d) feeds a head of FC(512), Dropout(0.5), ReLU,
+FC(512), Dropout(0.25), ReLU and FC(5). The whole network is
+fine-tuned with Adam (lr $10^{-3}$, weight decay $10^{-4}$), global gradient-norm clipping at 0.1 and
+cross-entropy loss. Inputs are normalised with ImageNet statistics.
+
+\textbf{Strategy 2 (headline):} CLAHE~\cite{zuiderveld1994clahe} on the LAB luminance channel (clip 2.0,
+8$\times$8 tiles), 5$\times$5 Gaussian blur, square resize. Predictions are taken from 10 evenly spaced epochs
+and combined by majority vote. \textbf{Strategy 1:} plain resize to 150\,px; predictions from the mid-point
+and final epochs are averaged.
+
+\subsection{Compute and run configurations}
+\textbf{Exact protocol (headline).} Strategy~2 exactly as published: 300$\times$300 inputs, batch size 16,
+60 epochs, snapshots every 6 epochs. These runs used a free Google Colab NVIDIA T4 GPU (CUDA, full fp32
+precision, no mixed precision), took 78\,s per epoch ($\approx$1.3\,h per run) and finished without interruption.
+Checkpoints were written to Google Drive after every epoch so that a disconnected session could resume.
+
+\textbf{Compute-limited pilot.} Before GPU access, we trained on an Apple M2 with 8\,GB unified memory (PyTorch
+MPS backend). EfficientNet-B3 at 300\,px exceeded the memory budget even at batch size 8 (steps took 25--45\,s
+because of swapping), so the pilot used \textbf{224\,px, batch size 8 and 30 epochs} (snapshots every 3 epochs),
+$\approx$2\,h per run. The paper-setting pilot was interrupted once (disk full while writing a checkpoint) and
+resumed from its epoch-13 checkpoint. We keep the pilot runs because comparing them with the exact protocol
+isolates the effect of resolution and schedule (Sec.~\ref{sec:res}).
+
+All four runs share the same split (seed 42), model seed and code. Each configuration is trained once with the
+paper's learning rate ($10^{-3}$) and once with $10^{-4}$ (diagnostic, Sec.~\ref{sec:diag}).
+The EyePACS-pretraining variant behind the paper's 0.967 was not attempted: EyePACS is
+35{,}126 images ($\approx$10$\times$ APTOS), which is beyond our compute budget, so our target is the
+paper's ImageNet-initialised result (QWK 0.954).
+
+\subsection{Metrics}
+Following the course rules and our literature review, we report QWK~\cite{cohen1968kappa} (primary), accuracy,
+macro-F1, macro one-vs-rest AUC, per-class precision/recall/F1, ``minority recall'' (mean recall of Severe
+and PDR), the number of test predictions off by two or more grades, and confusion matrices. We report the
+final-epoch model, the best-validation-QWK model, and both snapshot-ensemble variants.

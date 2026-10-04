@@ -1,0 +1,23 @@
+\begin{table}[t]
+\centering
+\caption{Per-class test metrics, exact paper protocol (300\,px, 60 epochs, lr $10^{-3}$).}
+\label{tab:perclass}
+\footnotesize
+\begin{tabular}{llcccc}
+\toprule
+Grade & Model & Prec. & Recall & F1 & $n$ \\
+\midrule
+No DR & best val & 0.97 & 0.96 & 0.96 & 271 \\
+Mild & best val & 0.44 & 0.21 & 0.29 & 56 \\
+Moderate & best val & 0.65 & 0.93 & 0.76 & 150 \\
+Severe & best val & 0.27 & 0.10 & 0.15 & 29 \\
+PDR & best val & 0.52 & 0.32 & 0.39 & 44 \\
+\midrule
+No DR & snapshot vote & 0.94 & 0.97 & 0.96 & 271 \\
+Mild & snapshot vote & 0.50 & 0.38 & 0.43 & 56 \\
+Moderate & snapshot vote & 0.70 & 0.91 & 0.79 & 150 \\
+Severe & snapshot vote & 0.00 & 0.00 & 0.00 & 29 \\
+PDR & snapshot vote & 0.53 & 0.41 & 0.46 & 44 \\
+\bottomrule
+\end{tabular}
+\end{table}
